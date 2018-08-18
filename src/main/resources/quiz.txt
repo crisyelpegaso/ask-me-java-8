@@ -1,0 +1,43 @@
+What is a stream?
+Difference between abstract static and final
+Difference between FileInputStrem and BufferedInputStream
+Exception vs RuntimeException. Which inherits from which and why
+What is throwable?
+Why is InputStream/OutputStream abstract?
+What is serializable? What's it for?
+How do you create a new thread?
+What is Runnable? What is it for?
+When using interfaces and when abstract classes?
+When using Thread() and when Runnable?
+Is there any difference in memory using Thread or Runnable?
+Which is the difference between livelock and deadlock? What about starvation?
+What is a monitor? How would you use it? How would you implement it?
+What is synchronized?
+which is the difference between notify and notifyAll?
+what is serializable? What is it for?
+Custom Exception: should be Exception or RuntimeException? Why?
+What are generics? What are generics for?
+Name three different ways to iterate over the elements of a List.
+What's the difference between using ArrayList and HashMap? What criteria you use to select a type of collection?
+ArrayList vs LinkedList : which has better performance? when? why?
+Difference between a list size and a list capacity
+Comparator vs Comparable
+Equals vs HashCode, how do they affect collections?
+What is the hashCode result in case you don't override it?
+What is reflection? why is it useful? Which are its drawbacks?
+what result do you get dividing two int values if one of them is less than zero?
+What collection would you use if you want to order data using a particular criteria?
+Why Java does not permit multiple inheritance? How can you simulate it?
+Are java parameters passed by value or by reference? what does this mean?
+What is a reference type? Which does they inherite from?
+What's the difference between .class and getClass()?
+Horizonal or vertical scaling? why?
+Does it make a difference to have useless imports?
+Difference between override and overloading methods?
+Can you overrite static methods? Can you overload static methods?
+Default behavior of hashCode and equals
+Difference between comparator and comparable
+patterns: difference between state & strategy
+patterns: why would you use a mediator? example
+Algors : merge sort vs quick sort. Big O? When you would use which?
+How to implement Hashtable?
