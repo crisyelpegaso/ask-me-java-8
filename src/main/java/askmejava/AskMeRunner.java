@@ -1,53 +1,28 @@
 package askmejava;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import askmejava.model.Question;
+import askmejava.service.GetQuestionService;
+import com.spotify.apollo.Environment;
+import com.spotify.apollo.httpservice.HttpService;
+import com.spotify.apollo.httpservice.LoadingException;
+import com.spotify.apollo.route.Route;
 
 
 public class AskMeRunner {
 
-  private static final String FILENAME = "quiz.txt";
+  public static final String SERVICE_NAME = "askme";
 
-  private static int randomNumber;
-
-  private static List<Question> questions = new ArrayList<Question>();
-
-  public static void main(String[] args) {
-
-    AskMeRunner.loadQuestions(args[0]);
-
-    getRandomQuestion();
+  public static void main(String[] args) throws LoadingException {
+    String filePath = args[0];
+    HttpService.boot(environment -> AskMeRunner.init(environment, filePath), SERVICE_NAME, args);
   }
 
-  private static void getRandomQuestion() {
-    Random rand = new Random();
-    AskMeRunner.randomNumber = rand.nextInt(questions.size());
-    System.out.println(questions.get(randomNumber).getQuestion());
+  static void init(Environment environment, String filePath) {
+    GetQuestionService getQuestionService = new GetQuestionService(filePath);
+    environment.routingEngine().registerAutoRoute(
+        Route.sync("GET", "/healthcheck", requestContext -> "'I'm still alive' - Eddie Vedder"));
+    environment.routingEngine().registerAutoRoute(
+        Route.sync("GET", "/question", requestContext -> getQuestionService.getQuestion()));
   }
 
-  private static void loadQuestions(String filePath) {
-    FileReader in;
-    try {
-      in = new FileReader(new File(filePath));
-      BufferedReader bufferIn = new BufferedReader(in);
-
-      String quizQuestion;
-      while ((quizQuestion = bufferIn.readLine()) != null) {
-        Question q = new Question();
-        q.setQuestion(quizQuestion);
-        questions.add(q);
-      }
-      bufferIn.close();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
 
 }
