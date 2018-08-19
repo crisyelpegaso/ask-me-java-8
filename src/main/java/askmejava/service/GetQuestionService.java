@@ -3,20 +3,17 @@ package askmejava.service;
 import askmejava.model.Question;
 import com.spotify.apollo.Environment;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class GetQuestionService {
-
-  private List<Question> questions;
-
-  public GetQuestionService(String filePath) {
-    this.questions = loadQuestions(filePath);
-  }
 
   private static List<Question> loadQuestions(String filePath) {
     // TODO : Handle exceptions properly
@@ -39,12 +36,37 @@ public class GetQuestionService {
     return questions;
   }
 
-  public String getQuestion() {
-    Random rand = new Random();
+  private boolean appendQuestion(String question, String category){
+    Writer output;
+    try {
+      output = new BufferedWriter(new FileWriter("quiz/" + category + ".txt", true));
+      output.append(question);
+      output.close();
+    } catch (IOException e) {
+      //TODO
+      e.printStackTrace();
+      return false;
+    }
+    return true;
+  }
 
+  public String getQuestionFromCategory(String category) {
+    List<Question> questions = getCategory(category);
+    Random rand = new Random();
     int randomNumber = rand.nextInt(questions.size());
     String question = questions.get(randomNumber).getQuestion();
-    System.out.println(question);
     return question;
   }
+
+  public List<Question> getCategory(String category) {
+    // TODO : check file exists
+    List<Question> questions = loadQuestions("quiz/" + category + ".txt");
+    return questions;
+  }
+
+  public boolean appendQuestionToCategory(String category, String question) {
+    // TODO : check file exists
+    return appendQuestion(question, category);
+  }
 }
+
