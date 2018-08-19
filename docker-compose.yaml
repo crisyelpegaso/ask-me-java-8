@@ -1,0 +1,10 @@
+version: "3"
+services:
+  api:
+    image: askme:latest
+    volumes:
+      - ./quiz:/quiz
+    deploy:
+      replicas: 1
+    ports:
+      - "80:8080"
